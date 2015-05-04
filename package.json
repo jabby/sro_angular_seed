@@ -1,0 +1,30 @@
+{
+  "name": "project-name",
+  "title": "project-name",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-angular-templates": "*",
+    "grunt-autoprefixer": "*",
+    "grunt-bower-task": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-csslint": "*",
+    "grunt-contrib-cssmin": "*",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-contrib-uglify": "^0.9.1",
+    "grunt-contrib-watch": "*",
+    "grunt-express-server": "*",
+    "grunt-ng-annotate": "*",
+    "grunt-sro-create-angular-components": "*",
+    "jshint-stylish": "*",
+    "load-grunt-tasks": "*",
+    "time-grunt": "^1.1.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.12.3",
+    "express": "^5.0.0-alpha.1"
+  }
+}

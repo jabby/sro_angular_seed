@@ -1,0 +1,13 @@
+{
+  "name": "SROWebsite",
+  "version": "0.1",
+  "dependencies": {
+    "angular-route": "1.4.0-rc.1",
+    "angular-i18n": "1.4.0-rc.1",
+    "angular-touch": "1.4.0-rc.1",
+    "angular-i18n": "1.4.0-rc.1",
+    "angular": "1.4.0-rc.1",
+    "angular-scroll": "0.6.5",
+    "angular-animate": "1.4.0-rc.1"
+  }
+}
