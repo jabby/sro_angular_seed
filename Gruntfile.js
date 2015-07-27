@@ -195,7 +195,8 @@ module.exports = function (grunt) {
                 ]
             },
             options: {
-                initServiceController: true
+                initServiceController: true,
+                cssSuffix: "less"
             }
         }
     });
