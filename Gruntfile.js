@@ -2,8 +2,6 @@ module.exports = function (grunt) {
 
     require('load-grunt-tasks')(grunt);
     require('time-grunt')(grunt);
-    grunt.loadNpmTasks('assemble-less');
-
 
     grunt.initConfig({
 
@@ -56,7 +54,20 @@ module.exports = function (grunt) {
         concat: {
             css: {
                 src: [
-                    'assets/**/*.css'
+                    'app/**/*.css'
+                ],
+                dest: 'dist/style-css.css'
+            },
+            sass: {
+                src: [
+                    'app/**/*.scss'
+                ],
+                dest: 'dist/style-scss.scss'
+            },
+            'sass-css': {
+                src: [
+                    'dist/style-scss.css',
+                    'dist/style-css.css'
                 ],
                 dest: 'dist/style.css'
             },
@@ -110,10 +121,16 @@ module.exports = function (grunt) {
                 }
             }
         },
-        less: {
-            components: {
+        sass: {
+            dist: {
+                options: {
+                    sourcemap: "none",
+                    style: "expanded"
+                },
                 files: [
-                    {expand: true, cwd: '', src: 'app/**/*.less', dest: 'assets/', ext: '.css'}
+                    {
+                        'dist/style-scss.css': 'dist/style-scss.scss'
+                    }
                 ]
             }
         },
@@ -123,8 +140,8 @@ module.exports = function (grunt) {
                 tasks: ['ngtemplates']
             },
             css: {
-                files: ['app/**/*.css', 'app/**/*.less'],
-                tasks: ['generateCSS', 'clean:end-build']
+                files: ['app/**/*.css', 'app/**/*.scss'],
+                tasks: ['generateCSS']
             },
             js: {
                 files: ['app/**/*.js'],
@@ -170,7 +187,13 @@ module.exports = function (grunt) {
             tmp: ["tmp/"],
             assets: ["assets/"],
             dist: ["dist/"],
-            "end-build": ['dist/style.css', 'dist/script.js']
+            "end-build": [
+                'dist/style.css',
+                'dist/script.js',
+                'dist/style-css.css',
+                'dist/style-scss.css',
+                'dist/style-scss.scss'
+            ]
         },
         express: {
             dev: {
@@ -196,7 +219,7 @@ module.exports = function (grunt) {
             },
             options: {
                 initServiceController: true,
-                cssSuffix: "less"
+                cssSuffix: "scss"
             }
         }
     });
@@ -217,9 +240,10 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask("generateCSS", [
-        'less',
-        'copy:cssVendorFiles',
+        'concat:sass',
         'concat:css',
+        'sass',
+        'concat:sass-css',
         'autoprefixer',
         'cssmin',
         'clean:assets',
