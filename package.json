@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "private": true,
   "devDependencies": {
+    "assemble-less": "^0.7.0",
     "grunt": "*",
     "grunt-angular-templates": "*",
     "grunt-autoprefixer": "*",

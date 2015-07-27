@@ -2,6 +2,8 @@ module.exports = function (grunt) {
 
     require('load-grunt-tasks')(grunt);
     require('time-grunt')(grunt);
+    grunt.loadNpmTasks('assemble-less');
+
 
     grunt.initConfig({
 
@@ -54,7 +56,7 @@ module.exports = function (grunt) {
         concat: {
             css: {
                 src: [
-                    'app/**/*.css'
+                    'assets/**/*.css'
                 ],
                 dest: 'dist/style.css'
             },
@@ -108,14 +110,21 @@ module.exports = function (grunt) {
                 }
             }
         },
+        less: {
+            components: {
+                files: [
+                    {expand: true, cwd: '', src: 'app/**/*.less', dest: 'assets/', ext: '.css'}
+                ]
+            }
+        },
         watch: {
             html: {
                 files: ['app/**/*.html'],
                 tasks: ['ngtemplates']
             },
             css: {
-                files: ['app/**/*.css'],
-                tasks: ['concat:css', 'autoprefixer', 'cssmin', "csslint", 'clean:end-build']
+                files: ['app/**/*.css', 'app/**/*.less'],
+                tasks: ['generateCSS', 'clean:end-build']
             },
             js: {
                 files: ['app/**/*.js'],
@@ -125,7 +134,7 @@ module.exports = function (grunt) {
                 }
             },
             livereload: {
-                files: ['dist/*.min.*'],
+                files: ['dist/*.min.*', 'index.html'],
                 options: {livereload: true}
             }
         },
@@ -136,6 +145,15 @@ module.exports = function (grunt) {
                     'tmp/components/angular-i18n/angular-locale_fr-fr.js'
                 ],
                 dest: 'app/vendors/js/',
+                expand: true,
+                flatten: true,
+                filter: 'isFile'
+            },
+            cssVendorFiles: {
+                src: [
+                    'app/vendors/css/*.css'
+                ],
+                dest: 'assets/vendors/',
                 expand: true,
                 flatten: true,
                 filter: 'isFile'
@@ -150,6 +168,7 @@ module.exports = function (grunt) {
         },
         clean: {
             tmp: ["tmp/"],
+            assets: ["assets/"],
             dist: ["dist/"],
             "end-build": ['dist/style.css', 'dist/script.js']
         },
@@ -164,26 +183,46 @@ module.exports = function (grunt) {
         sro_create_angular_components: {
             website: {
                 views: [
-                    "app/views/home"
+                    "app/views/home",
+                    "app/views/login",
+                    "app/views/gallery",
+                    "app/views/weddinglist",
+                    "app/views/guestbook"
                 ],
-                directives: []
+                directives: [
+                    "app/components/sgwHeader",
+                    "app/views/home/components/sgwInvitation"
+                ]
+            },
+            options: {
+                initServiceController: true
             }
         }
     });
 
     grunt.registerTask('default', [
         'clean:dist',
-        'concat:css',
-        'concat:js-not-min',
-        'autoprefixer',
-        'cssmin',
+        'generateCSS',
+        'generateJS'
+    ]);
+
+    grunt.registerTask("generateJS", [
         'ngtemplates',
+        'concat:js-not-min',
         'ngAnnotate',
         'uglify:js',
         'concat:js-min',
-        'clean:end-build',
-        'csslint',
-        'jshint'
+        'clean:end-build'
+    ]);
+
+    grunt.registerTask("generateCSS", [
+        'less',
+        'copy:cssVendorFiles',
+        'concat:css',
+        'autoprefixer',
+        'cssmin',
+        'clean:assets',
+        'clean:end-build'
     ]);
 
     grunt.registerTask('generate files', [
