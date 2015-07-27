@@ -7,7 +7,6 @@
     "grunt": "*",
     "grunt-angular-templates": "*",
     "grunt-autoprefixer": "*",
-    "grunt-bower-task": "*",
     "grunt-contrib-clean": "*",
     "grunt-contrib-concat": "*",
     "grunt-contrib-copy": "*",
@@ -22,7 +21,13 @@
     "grunt-sro-create-angular-components": "*",
     "jshint-stylish": "*",
     "load-grunt-tasks": "*",
-    "time-grunt": "^1.1.1"
+    "time-grunt": "^1.1.1",
+    "angular-route": "*",
+    "angular-i18n": "*",
+    "angular-touch": "*",
+    "angular-i18n": "*",
+    "angular": "*",
+    "angular-animate": "*"
   },
   "dependencies": {
     "body-parser": "^1.12.3",

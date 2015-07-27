@@ -156,16 +156,6 @@ module.exports = function (grunt) {
             }
         },
         copy: {
-            bowerFiles: {
-                src: [
-                    'tmp/components/**/*.min.js',
-                    'tmp/components/angular-i18n/angular-locale_fr-fr.js'
-                ],
-                dest: 'app/vendors/js/',
-                expand: true,
-                flatten: true,
-                filter: 'isFile'
-            },
             cssVendorFiles: {
                 src: [
                     'app/vendors/css/*.css'
@@ -176,15 +166,7 @@ module.exports = function (grunt) {
                 filter: 'isFile'
             }
         },
-        bower: {
-            install: {
-                options: {
-                    copy: false
-                }
-            }
-        },
         clean: {
-            tmp: ["tmp/"],
             assets: ["assets/"],
             dist: ["dist/"],
             "end-build": [
@@ -265,10 +247,5 @@ module.exports = function (grunt) {
         'watch'
     ]);
 
-    grunt.registerTask('bower-task', [
-        "bower",
-        "copy:bowerFiles"
-    ]);
-    //"clean:tmp"
 };
 
