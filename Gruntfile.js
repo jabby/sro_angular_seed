@@ -111,6 +111,16 @@ module.exports = function (grunt) {
                 }
             }
         },
+        babel: {
+            options: {
+                sourceMap: false
+            },
+            dist: {
+                files: {
+                    'dist/script.js': 'dist/script.js'
+                }
+            }
+        },
         ngAnnotate: {
             options: {
                 singleQuotes: true
@@ -174,7 +184,8 @@ module.exports = function (grunt) {
                 'dist/script.js',
                 'dist/style-css.css',
                 'dist/style-scss.css',
-                'dist/style-scss.scss'
+                'dist/style-scss.scss',
+                'app/templates.js'
             ]
         },
         express: {
@@ -189,20 +200,17 @@ module.exports = function (grunt) {
             website: {
                 views: [
                     "app/views/home",
-                    "app/views/login",
-                    "app/views/gallery",
-                    "app/views/weddinglist",
-                    "app/views/guestbook"
+                    "app/views/login"
                 ],
                 directives: [
-                    "app/components/sgwHeader",
-                    "app/views/home/components/sgwInvitation"
-                ]
-            },
-            options: {
-                initServiceController: true,
-                cssSuffix: "scss"
+                    "app/components/header"
+                ],
+                options: {
+                    initServiceController: true,
+                    cssSuffix: "scss"
+                }
             }
+
         }
     });
 
@@ -215,6 +223,7 @@ module.exports = function (grunt) {
     grunt.registerTask("generateJS", [
         'ngtemplates',
         'concat:js-not-min',
+        'babel',
         'ngAnnotate',
         'uglify:js',
         'concat:js-min',

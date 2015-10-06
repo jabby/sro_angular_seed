@@ -1,6 +1,9 @@
 /* Controllers */
-angular.module('website').controller('HomeController',
-    function () {
-        'use strict';
+class HomeController {
+    constructor(HomeService) {
+        this.HomeService = HomeService;
     }
-);
+}
+
+angular.module('website').controller('HomeController', HomeController);
+
