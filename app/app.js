@@ -10,5 +10,7 @@ angular.module('website').config(function ($translateProvider) {
         suffix: '.json'
     });
 
+
     $translateProvider.preferredLanguage('fr');
-});
+})
+;

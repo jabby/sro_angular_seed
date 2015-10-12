@@ -12,8 +12,6 @@ var babel = require('gulp-babel');
 var gls = require('gulp-live-server');
 var mergeStream = require('merge-stream');
 var plumber = require("gulp-plumber");
-var jscs = require('gulp-jscs');
-
 
 var paths = {
     scriptsApplication: [
@@ -35,7 +33,6 @@ var paths = {
     htmlFiles: 'app/**/*.html'
 };
 
-
 gulp.task('generateJS', function () {
 
     stream = mergeStream();
@@ -43,11 +40,13 @@ gulp.task('generateJS', function () {
     stream.add(gulp.src(paths.scriptsVendors));
     stream.add(
         gulp.src(paths.scriptsApplication)
+            .pipe(plumber())
             .pipe(babel())
             .pipe(ngAnnotate())
             .pipe(uglify())
     );
     stream.add(gulp.src(paths.htmlFiles)
+            .pipe(plumber())
             .pipe(minifyHTML({
                 quotes: true
             }))
@@ -68,6 +67,7 @@ gulp.task('css', function () {
 
     stream.add(
         gulp.src(paths.sassFiles)
+            .pipe(plumber())
             .pipe(concat("all.scss"))
             .pipe(sass())
             .pipe(autoprefixer())
@@ -78,6 +78,7 @@ gulp.task('css', function () {
             .pipe(autoprefixer())
     );
     return stream
+        .pipe(plumber())
         .pipe(cssmin())
         .pipe(concat("style.min.css"))
         .pipe(gulp.dest('dist/'));
