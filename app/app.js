@@ -9,5 +9,6 @@ angular.module('website').config(function ($translateProvider) {
         prefix: '/i18n/locale-',
         suffix: '.json'
     });
+
     $translateProvider.preferredLanguage('fr');
 });
