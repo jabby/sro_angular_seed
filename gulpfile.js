@@ -85,24 +85,11 @@ gulp.task('css', function () {
 
 });
 
-// Rerun the task when a file changes
-gulp.task('watch', function () {
-    gulp.watch(paths.scriptsApplication, ['generateJS']);
-    gulp.watch(paths.scriptsVendors, ['generateJS']);
-    gulp.watch(paths.htmlFiles, ['generateJS']);
-    gulp.watch(paths.sassFiles, ['css']);
-    gulp.watch(paths.cssFiles, ['css']);
-});
-
 gulp.task('serve', ["generateJS", "css"], function () {
 
     //1. run your script as a server
     var server = gls.new('server.js');
     server.start();
-
-    gulp.watch(['dist/**'], function (file) {
-        server.notify.apply(server, [file]);
-    });
 
     gulp.watch(paths.scriptsApplication, ['generateJS']);
     gulp.watch(paths.scriptsVendors, ['generateJS']);
