@@ -52,7 +52,8 @@ gulp.task('generateJS', function () {
             }))
             .pipe(templateCache({
                 standalone: false,
-                module: "website"
+                module: "website",
+                root: "app/"
             }))
     );
 
@@ -71,7 +72,6 @@ gulp.task('css', function () {
             .pipe(concat("all.scss"))
             .pipe(sass())
             .pipe(autoprefixer())
-            .pipe(gulp.dest('build/'))
     );
     stream.add(
         gulp.src(paths.cssFiles)
